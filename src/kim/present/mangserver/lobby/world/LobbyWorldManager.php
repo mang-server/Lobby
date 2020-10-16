@@ -50,6 +50,10 @@ final class LobbyWorldManager{
         return $world;
     }
 
+    public function getWorldName() : string{
+        return $this->worldName;
+    }
+
     public function getWorld() : World{
         return $this->world;
     }
