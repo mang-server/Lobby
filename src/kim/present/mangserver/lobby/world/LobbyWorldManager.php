@@ -22,12 +22,21 @@
 
 declare(strict_types=1);
 
-namespace kim\present\mangserver\lobby;
+namespace kim\present\mangserver\lobby\world;
 
-use pocketmine\plugin\PluginBase;
+use kim\present\generator\void\VoidGenerator;
+use pocketmine\Server;
 
-final class Loader extends PluginBase{
-    public function onLoad() : void{
-        Lobby::getInstance();
+final class LobbyWorldManager{
+    private string $worldName;
+
+    public function __construct(string $worldName){
+        $this->worldName = $worldName;
+
+        $worldManager = Server::getInstance()->getWorldManager();
+        $worldManager->generateWorld($worldName, null, VoidGenerator::class, [], true);
+
+        $lobbyWorld = $worldManager->getWorldByName($worldName);
+        $worldManager->setDefaultWorld($lobbyWorld);
     }
 }
