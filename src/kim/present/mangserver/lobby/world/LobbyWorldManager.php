@@ -26,17 +26,31 @@ namespace kim\present\mangserver\lobby\world;
 
 use kim\present\generator\void\VoidGenerator;
 use pocketmine\Server;
+use pocketmine\world\Position;
+use pocketmine\world\World;
 
 final class LobbyWorldManager{
     private string $worldName;
 
+    private World $world;
+
     public function __construct(string $worldName){
         $this->worldName = $worldName;
+        $this->world = $this->generateWorld();
+    }
 
+    private function generateWorld() : World{
         $worldManager = Server::getInstance()->getWorldManager();
-        $worldManager->generateWorld($worldName, null, VoidGenerator::class, [], true);
+        $worldManager->generateWorld($this->worldName, null, VoidGenerator::class, [], true);
+        $world = $worldManager->getWorldByName($this->worldName);
+        if($world === null)
+            throw new \RuntimeException("Lobby world loading failed");
 
-        $lobbyWorld = $worldManager->getWorldByName($worldName);
-        $worldManager->setDefaultWorld($lobbyWorld);
+        $worldManager->setDefaultWorld($this->world);
+        return $world;
+    }
+
+    public function getWorld() : World{
+        return $this->world;
     }
 }
