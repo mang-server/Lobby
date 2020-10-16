@@ -46,7 +46,7 @@ final class LobbyWorldManager{
         if($world === null)
             throw new \RuntimeException("Lobby world loading failed");
 
-        $worldManager->setDefaultWorld($this->world);
+        $worldManager->setDefaultWorld($world);
         return $world;
     }
 
