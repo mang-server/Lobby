@@ -1,0 +1,10 @@
+---
+name: Lobby
+main: kim\present\mangserver\lobby\Loader
+version: 1.0.0
+api: [4.0.0]
+author: PresentKim
+description: "[MangServer] Core plugin to manage lobby"
+depend: [VoidGenerator]
+load: POSTWORLD
+...
