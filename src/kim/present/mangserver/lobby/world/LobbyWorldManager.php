@@ -46,6 +46,9 @@ final class LobbyWorldManager{
         if($world === null)
             throw new \RuntimeException("Lobby world loading failed");
 
+        $world->setTime(World::TIME_MIDNIGHT);
+        $world->stopTime();
+
         $worldManager->setDefaultWorld($world);
         return $world;
     }
