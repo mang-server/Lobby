@@ -24,16 +24,23 @@ declare(strict_types=1);
 
 namespace kim\present\mangserver\lobby;
 
+use kim\present\generator\void\VoidGenerator;
 use pocketmine\Server;
 use pocketmine\utils\SingletonTrait;
 
 class LobbyManager{
     use SingletonTrait;
+    public const LOBBY_WORLD = "lobby";
 
     public function __construct(){
         $this->init();
     }
 
     public function init(){
+        $worldManager = Server::getInstance()->getWorldManager();
+        $worldManager->generateWorld(self::LOBBY_WORLD, null, VoidGenerator::class, [], true);
+
+        $lobbyWorld = $worldManager->getWorldByName(self::LOBBY_WORLD);
+        $worldManager->setDefaultWorld($lobbyWorld);
     }
 }
