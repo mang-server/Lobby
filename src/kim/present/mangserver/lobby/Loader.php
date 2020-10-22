@@ -24,10 +24,13 @@ declare(strict_types=1);
 
 namespace kim\present\mangserver\lobby;
 
+use kim\present\mangserver\lobby\world\LobbyGenerator;
 use pocketmine\plugin\PluginBase;
+use pocketmine\world\generator\GeneratorManager;
 
 final class Loader extends PluginBase{
     public function onLoad() : void{
+        GeneratorManager::getInstance()->addGenerator(LobbyGenerator::class, "lobby", true);
         Lobby::getInstance();
     }
 }
